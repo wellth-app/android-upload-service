@@ -74,6 +74,11 @@ public final class NameValue implements Parcelable {
         parcel.writeString(value);
     }
 
+    @Override
+    public String toString() {
+        return "Name = " + name + ", value = " + value;
+    }
+
     private NameValue(Parcel in) {
         name = in.readString();
         value = in.readString();

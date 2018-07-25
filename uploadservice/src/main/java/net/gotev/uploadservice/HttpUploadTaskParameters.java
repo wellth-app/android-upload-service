@@ -2,6 +2,7 @@ package net.gotev.uploadservice;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -46,6 +47,14 @@ public final class HttpUploadTaskParameters implements Parcelable {
         parcel.writeByte((byte) (usesFixedLengthStreamingMode ? 1 : 0));
         parcel.writeList(requestHeaders);
         parcel.writeList(requestParameters);
+
+        for (NameValue nv : requestHeaders){
+            Log.i("RequestHeaders nv = ", nv.toString());
+        }
+
+        for (NameValue nv : requestParameters){
+            Log.i("RequestParams nv = ", nv.toString());
+        }
     }
 
     private HttpUploadTaskParameters(Parcel in) {
@@ -54,6 +63,7 @@ public final class HttpUploadTaskParameters implements Parcelable {
         usesFixedLengthStreamingMode = in.readByte() == 1;
         in.readList(requestHeaders, NameValue.class.getClassLoader());
         in.readList(requestParameters, NameValue.class.getClassLoader());
+        Log.i("PARCEL IN = ", in.toString());
     }
 
     @Override
