@@ -119,10 +119,13 @@ public abstract class UploadTask implements Runnable {
      * @throws IOException if an I/O exception occurs while initializing
      */
     protected void init(UploadService service, Intent intent) throws IOException {
+        Log.d("UPLOADTASK", "Running init!");
+
         this.notificationManager = (NotificationManager) service.getSystemService(Context.NOTIFICATION_SERVICE);
         this.params = intent.getParcelableExtra(UploadService.PARAM_TASK_PARAMETERS);
         this.service = service;
         this.mainThreadHandler = new Handler(service.getMainLooper());
+
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && params.notificationConfig != null) {
             String notificationChannelId = params.notificationConfig.getNotificationChannelId();

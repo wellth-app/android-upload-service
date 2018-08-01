@@ -251,12 +251,13 @@ public final class UploadService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
-        Log.d("UPLOADSERVICE", "Starting upload service with intent = " + intent.getDataString() + " and flags = " + flags + " and startId = " + startId);
+        Log.d("UPLOADSERVICE", "Starting upload service with intent = " + intent + " and flags = " + flags + " and startId = " + startId);
         if (intent == null || !getActionUpload().equals(intent.getAction())) {
             return shutdownIfThereArentAnyActiveTasks();
         }
 
         if ("net.gotev".equals(NAMESPACE)) {
+            Log.d("UPLOADSERVICE", "Namespace is bad!");
             throw new IllegalArgumentException("Hey dude, please set the namespace for your app by following the setup instructions: https://github.com/gotev/android-upload-service/wiki/Setup");
         }
 
@@ -266,14 +267,18 @@ public final class UploadService extends Service {
                 (isExecuteInForeground() ? "enabled" : "disabled")));
 
         UploadTask currentTask = getTask(intent);
+        Log.d("UPLOADSERVICE", "UploadTask = " + currentTask.toString() + " with server url = " + currentTask.params.serverUrl + " with total bytes = " + currentTask.totalBytes);
+
 
         if (currentTask == null) {
+            Log.d("UPLOADSERVICE", "CurrentTask is null!");
             return shutdownIfThereArentAnyActiveTasks();
         }
 
         if (uploadTasksMap.containsKey(currentTask.params.id)) {
             Logger.error(TAG, "Preventing upload with id: " + currentTask.params.id
                     + " to be uploaded twice! Please check your code and fix it!");
+            Log.d("UPLOADSERVICE", "CurrentTask is already working!");
             return shutdownIfThereArentAnyActiveTasks();
         }
 

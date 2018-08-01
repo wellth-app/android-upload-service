@@ -53,6 +53,8 @@ public abstract class HttpUploadTask extends UploadTask
     @SuppressLint("NewApi")
     protected void upload() throws Exception {
 
+        Log.d("UPLOADTASKHTTP", "Running upload!");
+
         Logger.debug(LOG_TAG, "Starting upload task with ID " + params.id);
 
         try {
