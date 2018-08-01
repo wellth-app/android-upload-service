@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.IBinder;
 import android.os.PowerManager;
+import android.util.Log;
 
 import net.gotev.uploadservice.http.HttpStack;
 import net.gotev.uploadservice.http.impl.HurlStack;
@@ -249,6 +250,8 @@ public final class UploadService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+
+        Log.d("UPLOADSERVICE", "Starting upload service with intent = " + intent.getDataString() + " and flags = " + flags + " and startId = " + startId);
         if (intent == null || !getActionUpload().equals(intent.getAction())) {
             return shutdownIfThereArentAnyActiveTasks();
         }

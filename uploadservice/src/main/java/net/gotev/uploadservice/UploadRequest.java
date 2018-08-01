@@ -3,6 +3,7 @@ package net.gotev.uploadservice;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.util.Log;
 
 import java.util.UUID;
 
@@ -31,6 +32,8 @@ public abstract class UploadRequest<B extends UploadRequest<B>> {
      */
     public UploadRequest(final Context context, final String uploadId, final String serverUrl)
         throws IllegalArgumentException {
+
+        Log.d("UPLOADREQUEST", "Constructor!");
 
         if (context == null)
             throw new IllegalArgumentException("Context MUST not be null!");
@@ -61,6 +64,8 @@ public abstract class UploadRequest<B extends UploadRequest<B>> {
      *         generated uploadId
      */
     public String startUpload() {
+
+        Log.d("UPLOADREQUEST", "Starting upload from upload request");
         UploadService.setUploadStatusDelegate(params.id, delegate);
 
         final Intent intent = new Intent(context, UploadService.class);
@@ -69,10 +74,13 @@ public abstract class UploadRequest<B extends UploadRequest<B>> {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             if (params.notificationConfig == null) {
+                Log.d("UPLOADREQUEST", "Throwing Oreo error 1");
                 throw new IllegalArgumentException("Android Oreo requires a notification configuration for the service to run. https://developer.android.com/reference/android/content/Context.html#startForegroundService(android.content.Intent)");
             }
+            Log.d("UPLOADREQUEST", "Starting foreground service");
             context.startForegroundService(intent);
         } else {
+            Log.d("UPLOADREQUEST", "Starting regular service");
             context.startService(intent);
         }
 
@@ -92,7 +100,10 @@ public abstract class UploadRequest<B extends UploadRequest<B>> {
         if (taskClass == null)
             throw new RuntimeException("The request must specify a task class!");
 
-        intent.putExtra(UploadService.PARAM_TASK_CLASS, taskClass.getName());
+        final String taskClassName = taskClass.getName();
+        Log.d("UPLOADREQUEST", "initializeIntent taskClassName = " + taskClassName);
+
+        intent.putExtra(UploadService.PARAM_TASK_CLASS, taskClassName);
     }
 
     @SuppressWarnings("unchecked")

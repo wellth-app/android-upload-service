@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 
 import java.io.File;
 import java.io.IOException;
@@ -141,6 +142,8 @@ public abstract class UploadTask implements Runnable {
 
     @Override
     public final void run() {
+
+        Log.d("UPLOADTASK", "Running the upload task!");
 
         createNotification(new UploadInfo(params.id));
 
