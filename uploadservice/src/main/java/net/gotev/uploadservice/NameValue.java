@@ -3,6 +3,8 @@ package net.gotev.uploadservice;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.io.File;
+
 /**
  * Represents a request parameter.
  *
@@ -31,7 +33,7 @@ public final class NameValue implements Parcelable {
     }
 
     public final String getValue() {
-        return value;
+        return name.equals("photoUrl") && value.contains("file:") ? EncodingUtils.encodeFileToBase64Binary(new File(value)) : value;
     }
 
     @Override
