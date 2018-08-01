@@ -267,7 +267,7 @@ public final class UploadService extends Service {
                 (isExecuteInForeground() ? "enabled" : "disabled")));
 
         UploadTask currentTask = getTask(intent);
-        Log.d("UPLOADSERVICE", "UploadTask = " + currentTask.toString() + " with server url = " + currentTask.params.serverUrl + " with total bytes = " + currentTask.totalBytes);
+        Log.d("UPLOADSERVICE", "UploadTask = " + currentTask + " with server url = " + currentTask.params.serverUrl + " with total bytes = " + currentTask.totalBytes);
 
 
         if (currentTask == null) {
@@ -352,9 +352,14 @@ public final class UploadService extends Service {
      * @return task instance or null if the task class is not supported or invalid
      */
     UploadTask getTask(Intent intent) {
+
+        Log.d("UPLOADSERVICE", "Running getTask!");
         String taskClass = intent.getStringExtra(PARAM_TASK_CLASS);
+        Log.d("UPLOADSERVICE", "taskClass = " + taskClass);
+
 
         if (taskClass == null) {
+            Log.d("UPLOADSERVICE", "Returning null!");
             return null;
         }
 
@@ -364,6 +369,8 @@ public final class UploadService extends Service {
             Class<?> task = Class.forName(taskClass);
 
             if (UploadTask.class.isAssignableFrom(task)) {
+                Log.d("UPLOADSERVICE", "Task is assignable!");
+
                 uploadTask = UploadTask.class.cast(task.newInstance());
                 uploadTask.init(this, intent);
             } else {
@@ -373,6 +380,8 @@ public final class UploadService extends Service {
             Logger.debug(TAG, "Successfully created new task with class: " + taskClass);
 
         } catch (Exception exc) {
+            Log.d("UPLOADSERVICE", "getTask() exception = " + exc.getMessage());
+
             Logger.error(TAG, "Error while instantiating new task", exc);
         }
 
