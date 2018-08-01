@@ -372,6 +372,8 @@ public final class UploadService extends Service {
                 Log.d("UPLOADSERVICE", "Task is assignable!");
 
                 uploadTask = UploadTask.class.cast(task.newInstance());
+                Log.d("UPLOADSERVICE", "Task was casted!");
+
                 uploadTask.init(this, intent);
             } else {
                 Logger.error(TAG, taskClass + " does not extend UploadTask!");

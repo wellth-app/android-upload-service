@@ -39,6 +39,7 @@ dependencies {
     compile "com.android.support:appcompat-v7:${supportLibraryVersion}"
     compile "com.android.support:support-v4:${supportLibraryVersion}"
     compile group: 'commons-codec', name: 'commons-codec', version: '1.5'
+    compile group: 'org.json', name: 'json', version: '20180130'
 }
 
 // add the following information to the file: local.properties situated in the parent directory of
