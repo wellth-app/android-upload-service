@@ -4,6 +4,8 @@ package net.gotev.uploadservice;
  * Created by Kyle Weisel on 7/22/18.
  */
 
+import android.util.Log;
+
 import org.apache.commons.codec.binary.Base64;
 
 import java.io.File;
@@ -18,6 +20,8 @@ public class EncodingUtils {
      * @return encoded file format
      */
     public static String encodeFileToBase64Binary(File file){
+        Log.d("EncodingUtils", "Running encodeFileToBase64Binary on file = " + file.getAbsolutePath());
+
         String encodedFile = null;
         try {
             FileInputStream fileInputStreamReader = new FileInputStream(file);
