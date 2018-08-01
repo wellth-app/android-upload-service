@@ -2,6 +2,7 @@ package net.gotev.uploadservice;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 import java.io.File;
 
@@ -33,7 +34,9 @@ public final class NameValue implements Parcelable {
     }
 
     public final String getValue() {
-        return name.equals("photoUrl") && value.contains("file:") ? EncodingUtils.encodeFileToBase64Binary(new File(value)) : value;
+        final String res = name.equals("photoUrl") && value.contains("file:") ? EncodingUtils.encodeFileToBase64Binary(new File(value)) : value;
+        Log.d("NAMEVALUE", "Returning res = " + res + " for key = " + name);
+        return res;
     }
 
     @Override
