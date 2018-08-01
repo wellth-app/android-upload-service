@@ -2,6 +2,7 @@ package net.gotev.uploadservice;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.util.Log;
 
 import net.gotev.uploadservice.http.BodyWriter;
 import net.gotev.uploadservice.http.HttpConnection;
@@ -36,6 +37,7 @@ public abstract class HttpUploadTask extends UploadTask
     protected void init(UploadService service, Intent intent) throws IOException {
         super.init(service, intent);
         this.httpParams = intent.getParcelableExtra(HttpUploadTaskParameters.PARAM_HTTP_TASK_PARAMETERS);
+        Log.d("HTTPUPLOADTASK", "Initializing!");
     }
 
     /**
