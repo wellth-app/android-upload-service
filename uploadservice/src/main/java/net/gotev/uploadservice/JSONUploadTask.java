@@ -51,11 +51,18 @@ public class JSONUploadTask extends HttpUploadTask {
                     final String paramName = parameter.getName();
                     final String paramValue = parameter.getValue();
 
-                    if (paramName.contains("photoUrl") && paramValue.contains("file:")) {
+                    if (paramName.contains("variables")) {
                         // Base64 encode the photo data
-                        result.put(paramName, EncodingUtils.encodeFileToBase64Binary(new File(paramValue)));
+                        final JSONObject variablesJSONObject = new JSONObject(paramValue);
+                        if (variablesJSONObject.has("photoUrl")) {
+                            final String photoURL = variablesJSONObject.getString("photoUrl");
+                            if (photoURL.contains("file:")) {
+                                variablesJSONObject.put("photoUrl", EncodingUtils.encodeFileToBase64Binary(new File(photoURL)));
+                            }
+                        }
+                        result.put(paramName, variablesJSONObject.toString());
                     } else {
-                        result.put(paramName, parameter.getValue());
+                        result.put(paramName, paramValue);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
