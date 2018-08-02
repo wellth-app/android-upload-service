@@ -23,7 +23,9 @@ public class EncodingUtils {
         Log.d("EncodingUtils", "Running encodeFileToBase64Binary on filePath = " + filePath);
 
         try {
-            final File file = new File(filePath.substring(filePath.indexOf("file://") + 7));
+            final String trimmedPath = filePath.substring(filePath.indexOf("file://") + 7);
+            Log.d("EncodingUtils", "trimmedPath = " + trimmedPath);
+            final File file = new File(trimmedPath);
             final byte[] fileBytes = fileToByteArray(file);
             final byte[] base64Bytes = Base64.encodeBase64(fileBytes);
             return new String(base64Bytes);
