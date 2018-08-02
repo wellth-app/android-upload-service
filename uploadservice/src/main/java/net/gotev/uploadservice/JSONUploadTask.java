@@ -1,15 +1,16 @@
 package net.gotev.uploadservice;
 
 import android.content.Intent;
+import android.util.Log;
 
 import net.gotev.uploadservice.http.BodyWriter;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.Arrays;
 
 /**
  * Implements an HTTP JSON upload task.
@@ -47,7 +48,15 @@ public class JSONUploadTask extends HttpUploadTask {
         if (!httpParams.getRequestParameters().isEmpty()) {
             for (final NameValue parameter : httpParams.getRequestParameters()) {
                 try {
-                    result.put(parameter.getName(), parameter.getValue());
+                    final String paramName = parameter.getName();
+                    final String paramValue = parameter.getValue();
+
+                    if (paramName.contains("photoUrl") && paramValue.contains("file:")) {
+                        // Base64 encode the photo data
+                        result.put(paramName, EncodingUtils.encodeFileToBase64Binary(new File(paramValue)));
+                    } else {
+                        result.put(paramName, parameter.getValue());
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
