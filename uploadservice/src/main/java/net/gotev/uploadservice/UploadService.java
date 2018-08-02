@@ -250,14 +250,11 @@ public final class UploadService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-
-        Log.d("UPLOADSERVICE", "Starting upload service with intent = " + intent + " and flags = " + flags + " and startId = " + startId);
         if (intent == null || !getActionUpload().equals(intent.getAction())) {
             return shutdownIfThereArentAnyActiveTasks();
         }
 
         if ("net.gotev".equals(NAMESPACE)) {
-            Log.d("UPLOADSERVICE", "Namespace is bad!");
             throw new IllegalArgumentException("Hey dude, please set the namespace for your app by following the setup instructions: https://github.com/gotev/android-upload-service/wiki/Setup");
         }
 
@@ -267,18 +264,14 @@ public final class UploadService extends Service {
                 (isExecuteInForeground() ? "enabled" : "disabled")));
 
         UploadTask currentTask = getTask(intent);
-        Log.d("UPLOADSERVICE", "UploadTask = " + currentTask + " with server url = " + currentTask.params.serverUrl + " with total bytes = " + currentTask.totalBytes);
-
 
         if (currentTask == null) {
-            Log.d("UPLOADSERVICE", "CurrentTask is null!");
             return shutdownIfThereArentAnyActiveTasks();
         }
 
         if (uploadTasksMap.containsKey(currentTask.params.id)) {
             Logger.error(TAG, "Preventing upload with id: " + currentTask.params.id
                     + " to be uploaded twice! Please check your code and fix it!");
-            Log.d("UPLOADSERVICE", "CurrentTask is already working!");
             return shutdownIfThereArentAnyActiveTasks();
         }
 
@@ -352,14 +345,9 @@ public final class UploadService extends Service {
      * @return task instance or null if the task class is not supported or invalid
      */
     UploadTask getTask(Intent intent) {
-
-        Log.d("UPLOADSERVICE", "Running getTask!");
         String taskClass = intent.getStringExtra(PARAM_TASK_CLASS);
-        Log.d("UPLOADSERVICE", "taskClass = " + taskClass);
-
 
         if (taskClass == null) {
-            Log.d("UPLOADSERVICE", "Returning null!");
             return null;
         }
 
@@ -369,11 +357,7 @@ public final class UploadService extends Service {
             Class<?> task = Class.forName(taskClass);
 
             if (UploadTask.class.isAssignableFrom(task)) {
-                Log.d("UPLOADSERVICE", "Task is assignable!");
-
                 uploadTask = UploadTask.class.cast(task.newInstance());
-                Log.d("UPLOADSERVICE", "Task was casted!");
-
                 uploadTask.init(this, intent);
             } else {
                 Logger.error(TAG, taskClass + " does not extend UploadTask!");
@@ -382,8 +366,6 @@ public final class UploadService extends Service {
             Logger.debug(TAG, "Successfully created new task with class: " + taskClass);
 
         } catch (Exception exc) {
-            Log.d("UPLOADSERVICE", "getTask() exception = " + exc.getMessage());
-
             Logger.error(TAG, "Error while instantiating new task", exc);
         }
 

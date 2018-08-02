@@ -24,7 +24,6 @@ public class EncodingUtils {
 
         try {
             final String trimmedPath = filePath.substring(filePath.indexOf("file://") + 7);
-            Log.d("EncodingUtils", "trimmedPath = " + trimmedPath);
             final File file = new File(trimmedPath);
             final byte[] fileBytes = fileToByteArray(file);
             final byte[] base64Bytes = Base64.encodeBase64(fileBytes);

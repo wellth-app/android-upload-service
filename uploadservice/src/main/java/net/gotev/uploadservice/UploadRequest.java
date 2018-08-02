@@ -33,8 +33,6 @@ public abstract class UploadRequest<B extends UploadRequest<B>> {
     public UploadRequest(final Context context, final String uploadId, final String serverUrl)
         throws IllegalArgumentException {
 
-        Log.d("UPLOADREQUEST", "Constructor!");
-
         if (context == null)
             throw new IllegalArgumentException("Context MUST not be null!");
 
@@ -74,13 +72,10 @@ public abstract class UploadRequest<B extends UploadRequest<B>> {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             if (params.notificationConfig == null) {
-                Log.d("UPLOADREQUEST", "Throwing Oreo error 1");
                 throw new IllegalArgumentException("Android Oreo requires a notification configuration for the service to run. https://developer.android.com/reference/android/content/Context.html#startForegroundService(android.content.Intent)");
             }
-            Log.d("UPLOADREQUEST", "Starting foreground service");
             context.startForegroundService(intent);
         } else {
-            Log.d("UPLOADREQUEST", "Starting regular service");
             context.startService(intent);
         }
 
