@@ -52,11 +52,19 @@ public class JSONUploadTask extends HttpUploadTask {
                     final String paramValue = parameter.getValue();
 
                     if (paramName.contains("variables")) {
+                        Log.d("JSONUPLOADTASK", "Param name contains variables");
                         // Base64 encode the photo data
                         final JSONObject variablesJSONObject = new JSONObject(paramValue);
+                        Log.d("JSONUPLOADTASK", "variablesJSONObject = " + variablesJSONObject.toString());
+
                         if (variablesJSONObject.has("photoUrl")) {
+                            Log.d("JSONUPLOADTASK", "variablesJSONObject has photoUrl");
                             final String photoURL = variablesJSONObject.getString("photoUrl");
-                            if (photoURL.contains("file:")) {
+                            Log.d("JSONUPLOADTASK", "photoURL = "+ photoURL);
+
+                            if (photoURL.contains("file")) {
+                                Log.d("JSONUPLOADTASK", "photoURL contains file");
+
                                 variablesJSONObject.put("photoUrl", EncodingUtils.encodeFileToBase64Binary(new File(photoURL)));
                             }
                         }
