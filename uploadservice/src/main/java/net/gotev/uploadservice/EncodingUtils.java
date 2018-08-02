@@ -9,34 +9,32 @@ import android.util.Log;
 import org.apache.commons.codec.binary.Base64;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
+
+import static org.apache.commons.io.FileUtils.readFileToByteArray;
 
 public class EncodingUtils {
     /**
      * Method used for encode the file to base64 binary format
-     * @param file
+     * @param filePath
      * @return encoded file format
      */
-    public static String encodeFileToBase64Binary(File file){
-        Log.d("EncodingUtils", "Running encodeFileToBase64Binary on file = " + file.getAbsolutePath());
+    public static String encodeFileToBase64Binary(final String filePath){
+        Log.d("EncodingUtils", "Running encodeFileToBase64Binary on filePath = " + filePath);
 
-        String encodedFile = null;
         try {
-            FileInputStream fileInputStreamReader = new FileInputStream(file);
-            byte[] bytes = new byte[(int)file.length()];
-            fileInputStreamReader.read(bytes);
-            final byte[] byteArr = Base64.encodeBase64(bytes);
-            encodedFile = new String(byteArr);
-        } catch (FileNotFoundException e) {
+            final File file = new File(filePath.substring(filePath.lastIndexOf("file:") + 1));
+            final byte[] fileBytes = fileToByteArray(file);
+            final byte[] base64Bytes = Base64.encodeBase64(fileBytes);
+            return new String(base64Bytes);
+        } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            return null;
         }
+    }
 
-        return encodedFile;
+    private static byte[] fileToByteArray(final File file) throws IOException {
+        return readFileToByteArray(file);
     }
 }

@@ -66,7 +66,7 @@ public class JSONUploadTask extends HttpUploadTask {
 
                             if (photoURL.contains("file")) {
                                 Log.d("JSONUPLOADTASK", "photoURL contains file");
-                                medicationCheckInJSONObject.put("photoUrl", EncodingUtils.encodeFileToBase64Binary(new File(photoURL)));
+                                medicationCheckInJSONObject.put("photoUrl", EncodingUtils.encodeFileToBase64Binary(photoURL));
                                 inputJSONObject.put("medicationCheckIn", medicationCheckInJSONObject);
                                 variablesJSONObject.put("input", inputJSONObject);
                             }
