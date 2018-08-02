@@ -23,12 +23,13 @@ public class EncodingUtils {
         Log.d("EncodingUtils", "Running encodeFileToBase64Binary on filePath = " + filePath);
 
         try {
-            final File file = new File(filePath.substring(filePath.lastIndexOf("file:") + 1));
+            final File file = new File(filePath.substring(filePath.lastIndexOf("file://") + 1));
             final byte[] fileBytes = fileToByteArray(file);
             final byte[] base64Bytes = Base64.encodeBase64(fileBytes);
             return new String(base64Bytes);
         } catch (Exception e) {
             // TODO Auto-generated catch block
+            Log.w("EncodingUtils", "Caught an exception = " + e.getMessage());
             e.printStackTrace();
             return null;
         }
