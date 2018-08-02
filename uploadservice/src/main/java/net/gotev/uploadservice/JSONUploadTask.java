@@ -56,16 +56,18 @@ public class JSONUploadTask extends HttpUploadTask {
                         // Base64 encode the photo data
                         final JSONObject variablesJSONObject = new JSONObject(paramValue);
                         final JSONObject inputJSONObject = variablesJSONObject.getJSONObject("input");
+                        final JSONObject medicationCheckInJSONObject = inputJSONObject.getJSONObject("medicationCheckIn");
                         Log.d("JSONUPLOADTASK", "variablesJSONObject = " + variablesJSONObject.toString());
 
-                        if (inputJSONObject.has("photoUrl")) {
+                        if (medicationCheckInJSONObject.has("photoUrl")) {
                             Log.d("JSONUPLOADTASK", "variablesJSONObject has photoUrl");
-                            final String photoURL = inputJSONObject.getString("photoUrl");
+                            final String photoURL = medicationCheckInJSONObject.getString("photoUrl");
                             Log.d("JSONUPLOADTASK", "photoURL = "+ photoURL);
 
                             if (photoURL.contains("file")) {
                                 Log.d("JSONUPLOADTASK", "photoURL contains file");
-                                inputJSONObject.put("photoUrl", EncodingUtils.encodeFileToBase64Binary(new File(photoURL)));
+                                medicationCheckInJSONObject.put("photoUrl", EncodingUtils.encodeFileToBase64Binary(new File(photoURL)));
+                                inputJSONObject.put("medicationCheckIn", medicationCheckInJSONObject);
                                 variablesJSONObject.put("input", inputJSONObject);
                             }
                         }
