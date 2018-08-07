@@ -32,12 +32,10 @@ android {
         warning 'InvalidPackage'
     }
 }
-
-def supportLibraryVersion = "27.0.2"
-
+=
 dependencies {
-    compile "com.android.support:appcompat-v7:${supportLibraryVersion}"
-    compile "com.android.support:support-v4:${supportLibraryVersion}"
+    compile "com.android.support:appcompat-v7:27.1.1"
+    compile "com.android.support:support-v4:27.1.1"
     compile group: 'commons-codec', name: 'commons-codec', version: '1.5'
     compile group: 'org.json', name: 'json', version: '20180130'
     compile group: 'commons-io', name: 'commons-io', version: '2.5'
