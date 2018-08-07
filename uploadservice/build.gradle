@@ -14,7 +14,7 @@ def sdkVersion = 26
 
 android {
     compileSdkVersion sdkVersion
-    buildToolsVersion '26.0.2'
+    buildToolsVersion '26.0.3'
 
     defaultConfig {
         minSdkVersion 14
@@ -32,11 +32,11 @@ android {
         warning 'InvalidPackage'
     }
 }
-=
+
 dependencies {
     compile "com.android.support:appcompat-v7:27.1.1"
     compile "com.android.support:support-v4:27.1.1"
-    compile group: 'commons-codec', name: 'commons-codec', version: '1.5'
+    compile group: 'commons-codec', name: 'commons-codec', version: '1.9'
     compile group: 'org.json', name: 'json', version: '20180130'
     compile group: 'commons-io', name: 'commons-io', version: '2.5'
 }
