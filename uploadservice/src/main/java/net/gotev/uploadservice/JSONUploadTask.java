@@ -65,7 +65,7 @@ public class JSONUploadTask extends HttpUploadTask {
                                 variablesJSONObject.put("input", inputJSONObject);
                             }
                         }
-                        result.put(paramName, variablesJSONObject.toString());
+                        result.put(paramName, variablesJSONObject);
                     } else {
                         result.put(paramName, paramValue);
                     }
