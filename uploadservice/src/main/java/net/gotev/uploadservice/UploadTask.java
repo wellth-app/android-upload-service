@@ -300,14 +300,16 @@ public abstract class UploadTask implements Runnable {
 
         final UploadStatusDelegate delegate = UploadService.getUploadStatusDelegate(params.id);
 
-        Log.d("UPLOADTASK", "Delegate = " + delegate == null ? "null" : "not null");
+        Log.d("UPLOADTASK", "Delegate = " + (delegate == null ? "null" : "not null"));
         if (delegate != null) {
             mainThreadHandler.post(new Runnable() {
                 @Override
                 public void run() {
                     if (successfulUpload) {
+                        Log.d("UPLOADTASK", "Calling success on delegate");
                         delegate.onCompleted(service, uploadInfo, response);
                     } else {
+                        Log.d("UPLOADTASK", "Calling fail on delegate");
                         delegate.onError(service, uploadInfo, response, null);
                     }
                 }
