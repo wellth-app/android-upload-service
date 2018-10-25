@@ -265,6 +265,8 @@ public abstract class UploadTask implements Runnable {
      */
     protected final void broadcastCompleted(final ServerResponse response) {
 
+        Log.d("HTTPUploadTask", "BroadcastCompleted fired!");
+
         final boolean successfulUpload = response.getHttpCode() >= 200 && response.getHttpCode() < 400;
 
         if (successfulUpload) {
@@ -277,7 +279,7 @@ public abstract class UploadTask implements Runnable {
             }
         }
 
-        Logger.debug(LOG_TAG, "Broadcasting upload " + (successfulUpload ? "completed" : "error")
+        Log.d("UPLOADTASK", "Broadcasting upload " + (successfulUpload ? "completed" : "error")
                 + " for " + params.id);
 
         final UploadInfo uploadInfo = new UploadInfo(params.id, startTime, uploadedBytes,
