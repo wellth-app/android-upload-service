@@ -299,6 +299,8 @@ public abstract class UploadTask implements Runnable {
         }
 
         final UploadStatusDelegate delegate = UploadService.getUploadStatusDelegate(params.id);
+
+        Log.d("UPLOADTASK", "Delegate = " + delegate == null ? "null" : "not null");
         if (delegate != null) {
             mainThreadHandler.post(new Runnable() {
                 @Override
