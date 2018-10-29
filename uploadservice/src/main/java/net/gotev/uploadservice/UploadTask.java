@@ -143,9 +143,6 @@ public abstract class UploadTask implements Runnable {
 
     @Override
     public final void run() {
-
-        Log.d("UPLOADTASK", "Running the upload task!");
-
         createNotification(new UploadInfo(params.id));
 
         attempts = 0;
@@ -264,9 +261,6 @@ public abstract class UploadTask implements Runnable {
      * @param response response got from the server
      */
     protected final void broadcastCompleted(final ServerResponse response) {
-
-        Log.d("HTTPUploadTask", "BroadcastCompleted fired!");
-
         final boolean successfulUpload = response.getHttpCode() >= 200 && response.getHttpCode() < 400;
 
         if (successfulUpload) {
@@ -279,7 +273,7 @@ public abstract class UploadTask implements Runnable {
             }
         }
 
-        Log.d("UPLOADTASK", "Broadcasting upload " + (successfulUpload ? "completed" : "error")
+        Logger.debug("UPLOADTASK", "Broadcasting upload " + (successfulUpload ? "completed" : "error")
                 + " for " + params.id);
 
         final UploadInfo uploadInfo = new UploadInfo(params.id, startTime, uploadedBytes,
@@ -300,16 +294,13 @@ public abstract class UploadTask implements Runnable {
 
         final UploadStatusDelegate delegate = UploadService.getUploadStatusDelegate(params.id);
 
-        Log.d("UPLOADTASK", "Delegate = " + (delegate == null ? "null" : "not null"));
         if (delegate != null) {
             mainThreadHandler.post(new Runnable() {
                 @Override
                 public void run() {
                     if (successfulUpload) {
-                        Log.d("UPLOADTASK", "Calling success on delegate");
                         delegate.onCompleted(service, uploadInfo, response);
                     } else {
-                        Log.d("UPLOADTASK", "Calling fail on delegate");
                         delegate.onError(service, uploadInfo, response, null);
                     }
                 }
@@ -414,9 +405,6 @@ public abstract class UploadTask implements Runnable {
      *                  of {@link UploadTask#upload()}
      */
     private void broadcastError(final Exception exception) {
-
-        Log.d("UPLOADTASK", "CAUGHT ERROR IN BROADCASTERROR = "+ exception.getMessage());
-
         Logger.info(LOG_TAG, "Broadcasting error for upload with ID: "
                 + params.id + ". " + exception.getMessage());
 

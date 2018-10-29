@@ -51,9 +51,6 @@ public abstract class HttpUploadTask extends UploadTask
      */
     @SuppressLint("NewApi")
     protected void upload() throws Exception {
-
-        Log.d("UPLOADTASKHTTP", "Running upload with id = " + params.id);
-
         Logger.debug(LOG_TAG, "Starting upload task with ID " + params.id);
 
         try {
@@ -73,7 +70,7 @@ public abstract class HttpUploadTask extends UploadTask
                     .setTotalBodyBytes(totalBytes, httpParams.usesFixedLengthStreamingMode);
 
             final ServerResponse response = connection.getResponse(this);
-            Log.d("HTTPUploadTask", "Server responded with HTTP " + response.getHttpCode()
+            Logger.debug("HTTPUploadTask", "Server responded with HTTP " + response.getHttpCode()
                             + " to upload with ID: " + params.id);
 
             // Broadcast completion only if the user has not cancelled the operation.
@@ -83,7 +80,6 @@ public abstract class HttpUploadTask extends UploadTask
             // broadcasted and then the cancellation. That behaviour was not desirable as the
             // library user couldn't execute code on user cancellation.
             if (shouldContinue) {
-                Log.d("HTTPUploadTask", "ShouldContinue = true");
                 broadcastCompleted(response);
             }
 

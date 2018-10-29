@@ -20,7 +20,6 @@ public class EncodingUtils {
      * @return encoded file format
      */
     public static String encodeFileToBase64Binary(final String filePath){
-        Log.d("EncodingUtils", "Running encodeFileToBase64Binary on filePath = " + filePath);
 
         try {
             final String trimmedPath = filePath.substring(filePath.indexOf("file://") + 7);

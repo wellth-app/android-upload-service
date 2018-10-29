@@ -62,11 +62,7 @@ public abstract class UploadRequest<B extends UploadRequest<B>> {
      *         generated uploadId
      */
     public String startUpload() {
-
-        Log.d("UPLOADREQUEST", "Starting upload for request with id = " + params.id + " & delegate = " + (delegate != null ? "not null" : "null"));
         UploadService.setUploadStatusDelegate(params.id, delegate);
-
-
         final Intent intent = new Intent(context, UploadService.class);
         this.initializeIntent(intent);
         intent.setAction(UploadService.getActionUpload());
@@ -97,8 +93,6 @@ public abstract class UploadRequest<B extends UploadRequest<B>> {
             throw new RuntimeException("The request must specify a task class!");
 
         final String taskClassName = taskClass.getName();
-        Log.d("UPLOADREQUEST", "initializeIntent taskClassName = " + taskClassName);
-
         intent.putExtra(UploadService.PARAM_TASK_CLASS, taskClassName);
     }
 
