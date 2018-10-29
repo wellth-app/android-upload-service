@@ -63,8 +63,9 @@ public abstract class UploadRequest<B extends UploadRequest<B>> {
      */
     public String startUpload() {
 
-        Log.d("UPLOADREQUEST", "Starting upload from upload request");
+        Log.d("UPLOADREQUEST", "Starting upload for request with id = " + params.id + " & delegate = " + (delegate != null ? "not null" : "null"));
         UploadService.setUploadStatusDelegate(params.id, delegate);
+
 
         final Intent intent = new Intent(context, UploadService.class);
         this.initializeIntent(intent);
