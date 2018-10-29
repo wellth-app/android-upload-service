@@ -1,5 +1,6 @@
 package net.gotev.uploadservice;
 
+import android.util.Log;
 import java.lang.ref.WeakReference;
 
 /**
@@ -25,7 +26,8 @@ public class Logger {
         void info(String tag, String message);
     }
 
-    private LogLevel mLogLevel = BuildConfig.DEBUG ? LogLevel.DEBUG : LogLevel.OFF;
+//    private LogLevel mLogLevel = BuildConfig.DEBUG ? LogLevel.DEBUG : LogLevel.OFF;
+    private LogLevel mLogLevel = LogLevel.DEBUG;
     private static LoggerDelegate mDefaultLogger = new DefaultLoggerDelegate();
     private WeakReference<LoggerDelegate> mDelegate = new WeakReference<>(mDefaultLogger);
 
@@ -62,24 +64,28 @@ public class Logger {
     }
 
     public static void error(String tag, String message) {
+        Log.e(tag, message);
         if (delegateIsDefinedAndLogLevelIsAtLeast(LogLevel.ERROR)) {
             SingletonHolder.instance.mDelegate.get().error(tag, message);
         }
     }
 
     public static void error(String tag, String message, Throwable exception) {
+        Log.e(tag, message);
         if (delegateIsDefinedAndLogLevelIsAtLeast(LogLevel.ERROR)) {
             SingletonHolder.instance.mDelegate.get().error(tag, message, exception);
         }
     }
 
     public static void info(String tag, String message) {
+        Log.i(tag, message);
         if (delegateIsDefinedAndLogLevelIsAtLeast(LogLevel.INFO)) {
             SingletonHolder.instance.mDelegate.get().info(tag, message);
         }
     }
 
     public static void debug(String tag, String message) {
+        Log.d(tag, message);
         if (delegateIsDefinedAndLogLevelIsAtLeast(LogLevel.DEBUG)) {
             SingletonHolder.instance.mDelegate.get().debug(tag, message);
         }

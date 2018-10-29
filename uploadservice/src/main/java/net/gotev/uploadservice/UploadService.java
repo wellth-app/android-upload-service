@@ -333,6 +333,8 @@ public final class UploadService extends Service {
         if (wakeLock.isHeld())
             wakeLock.release();
 
+        Log.d("UPLOADSERVICE", "Running onDestroy and clearing delegates");
+
         uploadTasksMap.clear();
         uploadDelegates.clear();
 
