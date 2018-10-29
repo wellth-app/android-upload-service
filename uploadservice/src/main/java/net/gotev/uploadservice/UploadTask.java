@@ -415,6 +415,8 @@ public abstract class UploadTask implements Runnable {
      */
     private void broadcastError(final Exception exception) {
 
+        Log.d("UPLOADTASK", "CAUGHT ERROR IN BROADCASTERROR = "+ exception.getMessage());
+
         Logger.info(LOG_TAG, "Broadcasting error for upload with ID: "
                 + params.id + ". " + exception.getMessage());
 
