@@ -84,8 +84,6 @@ dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
-    compile group: 'org.json', name: 'json', version: '20180130'
-
 }
 
 bintray {
