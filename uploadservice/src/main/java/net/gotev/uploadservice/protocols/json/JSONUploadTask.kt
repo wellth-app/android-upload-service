@@ -1,4 +1,4 @@
-package net.gotev.uploadservice.protocols.multipart
+package net.gotev.uploadservice.protocols.json
 
 import net.gotev.uploadservice.BuildConfig
 import net.gotev.uploadservice.HttpUploadTask

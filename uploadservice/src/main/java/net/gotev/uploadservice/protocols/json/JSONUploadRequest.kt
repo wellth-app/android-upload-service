@@ -1,4 +1,4 @@
-package net.gotev.uploadservice.protocols.multipart
+package net.gotev.uploadservice.protocols.json
 
 import android.content.Context
 import java.io.FileNotFoundException
