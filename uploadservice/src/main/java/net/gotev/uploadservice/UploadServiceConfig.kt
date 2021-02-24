@@ -58,7 +58,7 @@ object UploadServiceConfig {
      */
     @JvmStatic
     fun initialize(context: Application, defaultNotificationChannel: String, debug: Boolean) {
-        this.namespace = context.packageName
+        this.namespace = context.getPackageName()
         this.defaultNotificationChannel = defaultNotificationChannel
         UploadServiceLogger.setDevelopmentMode(debug)
     }
