@@ -63,6 +63,13 @@ object UploadServiceConfig {
         UploadServiceLogger.setDevelopmentMode(debug)
     }
 
+    @JvmStatic
+    fun initialize(packageName: String, defaultNotificationChannel: String, debug: Boolean) {
+        this.namespace = packageName
+        this.defaultNotificationChannel = defaultNotificationChannel
+        UploadServiceLogger.setDevelopmentMode(debug)
+    }
+
     /**
      * Namespace with which Upload Service is going to operate. This must be set in application
      * subclass onCreate method before anything else.
