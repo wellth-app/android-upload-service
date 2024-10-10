@@ -1,5 +1,6 @@
 <p align="center">
-  <img src="uploadservice-logo.png">
+  <img src="uploadservice-logo.png"><br>
+  10 years! Since 2013
 </p>
 
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Android%20Upload%20Service-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/2161) [![ktlint](https://img.shields.io/badge/code%20style-%E2%9D%A4-FF4081.svg)](https://ktlint.github.io/) ![Maven Central](https://img.shields.io/maven-central/v/net.gotev/uploadservice) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
@@ -29,7 +30,9 @@ You are also safe if your app is put in the background. All the uploads will con
 Bear in mind that if you kill your app, the service gets killed as well, as it's attached to your app's process and all the currently running uploads will be terminated abruptly.
 
 ## Features <a name="features"></a>
-* Android 5.0 (API 21) to Android 12 (API 31) support. 
+* Android 5.0 (API 21) to Android 14 (API 34) support.
+  * *Android 13 Note, for apps targeting API 33 or newer*:
+    * Due to new behavior changes, you are [required to request POST_NOTIFICATIONS permission at runtime in your app](https://developer.android.com/develop/ui/views/notifications/notification-permission) or else the upload progress won't be shown. To see an example, please look at the BaseActivity in the `examples/app` folder.
   * *Android 12 Note, for apps targeting API 31 or newer*:
     * What's supported: uploads initiated while the app is in foreground, with progress indication notification
     * What's NOT supported: uploads started while the app is in the background or uploads without progress indication notification. This is due to the Service limitations imposed by Google, which requires all background services to display a notification to the user. Current architecture cannot support this. For support of those use-cases, WorkManager is the only option.
@@ -66,7 +69,7 @@ Created my free logo at [LogoMakr.com](https://logomakr.com)
 
 ## License <a name="license"></a>
 
-    Copyright (C) 2013-2021 Aleksandar Gotev
+    Copyright (C) 2013-2023 Aleksandar Gotev
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.

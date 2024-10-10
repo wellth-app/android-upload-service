@@ -21,9 +21,10 @@ group = library_project_group
 version = library_version
 
 android {
-    compileSdkVersion target_sdk
+    namespace "net.gotev.uploadservice"
 
     defaultConfig {
+        compileSdk target_sdk
         minSdkVersion min_sdk
         targetSdkVersion target_sdk
         versionCode version_code
@@ -35,6 +36,7 @@ android {
         buildConfigField 'String', 'VERSION_NAME', "\"$library_version\""
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'proguard-rules.pro'
     }
 
     buildTypes {
@@ -45,8 +47,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 
     lintOptions {

@@ -20,6 +20,7 @@ group = library_project_group
 version = library_version
 
 android {
+    namespace "net.gotev.uploadservice.ftp"
     compileSdkVersion target_sdk
 
     defaultConfig {
@@ -28,6 +29,7 @@ android {
         versionCode version_code
         versionName library_version
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'proguard-rules.pro'
     }
 
     buildTypes {
@@ -38,8 +40,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 
     lintOptions {
@@ -68,7 +70,7 @@ dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
-    api 'commons-net:commons-net:3.8.0'
+    api 'commons-net:commons-net:3.10.0'
     //api "net.gotev:uploadservice:${version}"
     //comment the previous line and uncomment the next line for development (it uses the local lib)
     api project(':uploadservice')

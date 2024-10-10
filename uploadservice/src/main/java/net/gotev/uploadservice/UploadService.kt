@@ -4,6 +4,7 @@ import android.app.Notification
 import android.app.Service
 import android.content.Context
 import android.content.Intent
+import android.os.Build.VERSION.SDK_INT
 import android.os.IBinder
 import android.os.PowerManager
 import androidx.core.app.NotificationCompat
@@ -165,6 +166,15 @@ class UploadService : Service() {
         return false
     }
 
+    private fun stopServiceForeground() {
+        if (SDK_INT >= 24) {
+            stopForeground(STOP_FOREGROUND_REMOVE)
+        } else {
+            @Suppress("DEPRECATION")
+            stopForeground(true)
+        }
+    }
+
     /**
      * Called by each task when it is completed (either successfully, with an error or due to
      * user cancellation).
@@ -182,7 +192,7 @@ class UploadService : Service() {
 
         if (UploadServiceConfig.isForegroundService && uploadTasksMap.isEmpty()) {
             UploadServiceLogger.debug(TAG, NA) { "All tasks completed, stopping foreground execution" }
-            stopForeground(true)
+            stopServiceForeground()
             shutdownIfThereArentAnyActiveTasks()
         }
     }
@@ -203,11 +213,16 @@ class UploadService : Service() {
             "Starting UploadService. Debug info: $UploadServiceConfig"
         }
 
-        val notification = NotificationCompat.Builder(this, UploadServiceConfig.defaultNotificationChannel!!)
+        val builder = NotificationCompat.Builder(this, UploadServiceConfig.defaultNotificationChannel!!)
             .setSmallIcon(android.R.drawable.ic_menu_upload)
             .setOngoing(true)
             .setGroup(UploadServiceConfig.namespace)
-            .build()
+
+        if (SDK_INT >= 31) {
+            builder.foregroundServiceBehavior = Notification.FOREGROUND_SERVICE_IMMEDIATE
+        }
+
+        val notification = builder.build()
 
         startForeground(UPLOAD_NOTIFICATION_BASE_ID, notification)
 
@@ -248,7 +263,7 @@ class UploadService : Service() {
 
         if (UploadServiceConfig.isForegroundService) {
             UploadServiceLogger.debug(TAG, NA) { "Stopping foreground execution" }
-            stopForeground(true)
+            stopServiceForeground()
         }
 
         wakeLock.safeRelease()
