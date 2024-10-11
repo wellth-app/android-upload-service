@@ -2,12 +2,15 @@ package net.gotev.uploadservice.observer.request
 
 import android.content.BroadcastReceiver
 import android.content.Context
+import android.content.Context.RECEIVER_NOT_EXPORTED
 import android.content.Intent
 import net.gotev.uploadservice.UploadServiceConfig
 import net.gotev.uploadservice.data.BroadcastData
 import net.gotev.uploadservice.data.UploadInfo
 import net.gotev.uploadservice.data.UploadStatus
 import net.gotev.uploadservice.extensions.registerReceiverCompat
+
+import android.os.Build.VERSION.SDK_INT
 
 open class BaseRequestObserver(
     private val context: Context,
@@ -34,7 +37,11 @@ open class BaseRequestObserver(
     }
 
     open fun register() {
-        context.registerReceiverCompat(this, UploadServiceConfig.broadcastStatusIntentFilter)
+        if (SDK_INT >= 34) {
+            context.registerReceiver(receiver, filter, RECEIVER_NOT_EXPORTED)
+        } else {
+            context.registerReceiverCompat(this, UploadServiceConfig.broadcastStatusIntentFilter)
+        }
     }
 
     open fun unregister() {
