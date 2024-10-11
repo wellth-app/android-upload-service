@@ -38,7 +38,7 @@ open class BaseRequestObserver(
 
     open fun register() {
         if (SDK_INT >= 34) {
-            context.registerReceiver(receiver, filter, RECEIVER_NOT_EXPORTED)
+            context.registerReceiver(this, UploadServiceConfig.broadcastStatusIntentFilter, RECEIVER_NOT_EXPORTED)
         } else {
             context.registerReceiverCompat(this, UploadServiceConfig.broadcastStatusIntentFilter)
         }
